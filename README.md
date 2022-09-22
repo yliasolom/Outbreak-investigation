@@ -15,4 +15,12 @@ Some theory:
  2. Why allignment does not work? (assemlly, find relatives, find differences, how thew evolved, goe they became pathogens?)
 
 we will use SPADes, BLAST, annotate it
+
+Tacks: 
+What is the genome sequence of E.coli X?
+What strain of E.coli is E.coli X most similar to? (Where did it come from?)
+What are the genes that E.coli X contains?
+Which of these genes make E.coli X distinct?
+How did E.coli X evolve to obtain these genes?
+How did E.coli X become pathogenic?
  
