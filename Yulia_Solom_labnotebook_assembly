@@ -1,1 +1,66 @@
+#SPAdes 3.15.5(Bankevich et al., 2012) together with QUAST (N50, maximum contig length, GC %, genes found in a reference, etc.)(Gurevich et al., 2013)
+#https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpbi.102
+
+
+#Illumina reads from the TY2482 sample
+#Lets investigate the evolutionary origins and pathogenic potential!
+# we will determine which other strain(s) it is most similar to in an effort to determine how it could have arisen. 
+#what new genes it possesses for pathogenicity, and how it evolved these new functions (maybe plasmids? phages?)
+
+#spades uses contigs and  information about the distances between reads within read-pairs
+
+
+conda install -c bioconda spades
+spades.py --test  #yes it works
+
+#1.fastqc:
+
+mkdir -p srr_data
+cd srr_data/
+mkdir -p SRR292678_470kb_paired
+cd SRR292678_470kb_paired
+wget https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292678sub_S1_L001_R1_001.fastq.gz
+wget https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292678sub_S1_L001_R2_001.fastq.gz
+gunzip *.gz
+
+ 
+mkdir -p SRR292770_6kb_mate
+wget https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292770_S1_L001_R2_001.fastq.gz
+wget https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292770_S1_L001_R1_001.fastq.gz
+gunzip *.gz
+
+
+mkdir -p SRR292862_2kb_mate
+wget https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292862_S2_L001_R1_001.fastq.qz
+wget https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292862_S2_L001_R1_001.fastq.qz
+gunzip *.gz
+
+cd ../
+fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292862_2kb_mate/SRR292862_S2_L001_R1_001.fastq /home/iuliiasolomennikova/srr_data/SRR292862_2kb_mate/SRR292862_S2_L001_R2_001.fastq
+fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292770_6kb_mate/SRR292770_S1_L001_R1_001.fastq /home/iuliiasolomennikova/srr_data/SRR292770_6kb_mate/SRR292770_S1_L001_R2_001.fastq
+fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678sub_S1_L001_R1_001.fastq /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678sub_S1_L001_R2_
+
+#2. K-mer profile and genome size estimation (http://www.cbcb.umd.edu/software/jellyfish/)
+#Failed to allocate 55000000000 bytes of memory
+
+#3. Assembly
+#3.1. Effect of read correction
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
 
