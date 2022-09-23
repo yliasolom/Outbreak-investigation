@@ -47,8 +47,7 @@ jellyfish count -t 8 -C -m 31 -s 1G -o spec_6kb_31mer --min-quality=20 --quality
 
 
 #3. Assembly
-#3.1. Effect of read correction
-
+spades.py -o output -1 SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R1_002.fastq
 
 #3.1.quast (ibrary type: paired-end)
 conda activate quast_tool
@@ -70,7 +69,24 @@ fgrep -c '>'contigs.fasta    #== 90
 mkdir 4_step_all_quast_repo
 quast.py -o 4_step_all_quast_repo -t 16 scaffolds.fasta
 
-5. Genome Annotation(prokka - rapid bacterial genome annotation)
+#5. Genome Annotation(prokka - rapid bacterial genome annotation)
+------------------do here
+
+
+#6. Finding the closest relative of E. coli X
+# Barrnap
+ 
+ 
+#7.Mauve
+
+
+
+#8. RAST
+
+
+
+
+#9. ResFinder
 
 
 
