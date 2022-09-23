@@ -47,6 +47,35 @@ fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678s
 #3.1. Effect of read correction
 
 
+#3.1.quast (ibrary type: paired-end)
+conda activate quast_tool
+
+quast.py -o q_repo -t 16 scaffolds.fasta
+fgrep -c '>' scaffolds.fasta 
+fgrep -c '>' contigs.fasta 
+#372 scaffolds, 221 contigs
+#see 3 step quast_rep
+
+
+#3a (Optional, 1 extra credit). Effect of read correction - Repeat the k-mer profile plotting step
+
+#4. Impact of reads with large insert size
+
+quast.py -o quast_repo -t 16 scaffolds.fasta
+fgrep -c '>' scaffolds.fasta #==327 fragments 
+fgrep -c '>'contigs.fasta    #== 90
+mkdir 4_step_all_quast_repo
+quast.py -o 4_step_all_quast_repo -t 16 scaffolds.fasta
+
+5. Genome Annotation(prokka - rapid bacterial genome annotation)
+
+
+
+
+
+
+
+
 
 
 
