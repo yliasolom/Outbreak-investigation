@@ -41,8 +41,9 @@ fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292770_6kb_mate/SRR292770_S1_L
 fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678sub_S1_L001_R1_001.fastq /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678sub_S1_L001_R2_
 
 #2. K-mer profile and genome size estimation (http://www.cbcb.umd.edu/software/jellyfish/)
-
+conda install -c conda-forge jellyfish
 jellyfish count -t 8 -C -m 31 -s 1G -o spec_6kb_31mer --min-quality=20 --quality-start=33 *.fastq
+#and do the same with all sequences
 
 
 #3. Assembly
