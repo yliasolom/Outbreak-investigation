@@ -70,11 +70,23 @@ mkdir 4_step_all_quast_repo
 quast.py -o 4_step_all_quast_repo -t 16 scaffolds.fasta
 
 #5. Genome Annotation(prokka - rapid bacterial genome annotation)
-------------------do here
+prokka scaffolds.fasta --outdir prokka_ex_res
+#organism: Genus species strain 
+#contigs: 205
+#bases: 5424432
+#gene: 5144
+#tRNA: 79
+#tmRNA: 1
+#repeat_region: 1
+#CDS: 5064
 
 
 #6. Finding the closest relative of E. coli X
 # Barrnap
+
+barrnap scaffolds.fna
+
+#for blast: >PROKKA_00001 Putative deoxyribonuclease RhsC in .ffn
  
  
 #7.Mauve
