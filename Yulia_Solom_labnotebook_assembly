@@ -8,6 +8,20 @@ grep -oi "product=.*" scaffolds.ffn | grep -v "hypothetical" | sed "s/product=//
 ./assembled.sh - create your own script
 jobs - which jobs?
 
+f.e.: fo trimming
+echo trimming > trimmomatic.sh
+chmod 700 trimmomatic.sh
+
+#!/bin/bash
+
+FORWARD=$1
+REVERSE=$2
+
+nohup trimmomatic PE -threads 8 $FORWARD $REVERSE paired1_$FORWARD unpaired1_$REVERSE paired2_$FORWARD unpaired2_$REVERSE ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:36 &
+
+
+
+
 
 
 
