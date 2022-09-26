@@ -4,6 +4,10 @@ locate fasta - find everywhere
 cp {*.txt, *.log} test/ - copy in directiey test
 cat hi.txt ha.txt > combined-rl.txt - combine files
 chmod 700 hi.txt - make it executableq
+grep -oi "product=.*" scaffolds.ffn | grep -v "hypothetical" | sed "s/product=//"
+./assembled.sh - create your own script
+jobs - which jobs?
+
 
 
 
