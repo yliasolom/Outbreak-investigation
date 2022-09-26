@@ -19,17 +19,9 @@ REVERSE=$2
 
 nohup trimmomatic PE -threads 8 $FORWARD $REVERSE paired1_$FORWARD unpaired1_$REVERSE paired2_$FORWARD unpaired2_$REVERSE ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:36 &
 
-
-
-
-
-
-
-
-
+---------------------------
 #SPAdes 3.15.5(Bankevich et al., 2012) together with QUAST (N50, maximum contig length, GC %, genes found in a reference, etc.)(Gurevich et al., 2013)
 #https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpbi.102
-
 
 #Illumina reads from the TY2482 sample
 #Lets investigate the evolutionary origins and pathogenic potential!
@@ -41,7 +33,7 @@ nohup trimmomatic PE -threads 8 $FORWARD $REVERSE paired1_$FORWARD unpaired1_$RE
 
 conda install -c bioconda spades
 spades.py --test  #yes it works
-
+--------------------------------------------------
 #1.fastqc:
 
 mkdir -p srr_data
@@ -69,23 +61,27 @@ fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292862_2kb_mate/SRR292862_S2_L
 fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292770_6kb_mate/SRR292770_S1_L001_R1_001.fastq /home/iuliiasolomennikova/srr_data/SRR292770_6kb_mate/SRR292770_S1_L001_R2_001.fastq
 fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678sub_S1_L001_R1_001.fastq /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678sub_S1_L001_R2_
 
+---------------------------
 #2. K-mer profile and genome size estimation (http://www.cbcb.umd.edu/software/jellyfish/)
 conda install -c conda-forge jellyfish
 jellyfish count -t 8 -C -m 31 -s 1G -o spec_6kb_31mer --min-quality=20 --quality-start=33 *.fastq
 #and do the same with all sequences
 
-
+--------------------------
 #3. Assembly
 spades.py -o output -1 SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R1_002.fastq
-
+#size of dir:
+du -sh . 
+--------------------------
 #3.1.quast (ibrary type: paired-end)
 conda activate quast_tool
 
 quast.py -o q_repo -t 16 scaffolds.fasta
+#...
 fgrep -c '>' scaffolds.fasta 
 fgrep -c '>' contigs.fasta 
-#372 scaffolds, 221 contigs
-#see 3 step quast_rep
+#372 scaffolds, 90 contigs
+#see 3 step quast_rep in .txt
 
 
 #3a (Optional, 1 extra credit). Effect of read correction - Repeat the k-mer profile plotting step
