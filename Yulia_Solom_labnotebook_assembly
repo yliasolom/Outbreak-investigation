@@ -109,9 +109,19 @@ prokka scaffolds.fasta --outdir prokka_ex_res
 #6. Finding the closest relative of E. coli X
 # Barrnap
 
-barrnap scaffolds.fna < new_bact
+barrnap scaffolds.fna < 16srna
+#then I created from 16srna file bed file by deleting columns and by renaming the file
+#then I changed the tabularuty by:
+awk -v OFS='\t' '{print $1, $2, $3}' 16sRNA.bed > 16s_RNA_2.bed
+awk -v OFS='\t' '{print $1, $2, $3}' 16sRNA.bed
+awk -v OFS='\t' 16sRNA.bed '{print $1, $2, $3}'
 
-#for blast: >PROKKA_00001 Putative deoxyribonuclease RhsC (in .ffn)
+#bedtools getfasta:
+bedtools getfasta -fi ../prokka_raiko/scaffolds.fna -bed 16s_RNA_2.bed > 16srna_blast.fasta
+
+#blast this multifasta format with the given parameters and find the closest relative:
+#Escherichia coli str. K-12 substr. MG1655, complete genome
+#Sequence ID: NC_000913.3
  
  
 #7.Mauve
