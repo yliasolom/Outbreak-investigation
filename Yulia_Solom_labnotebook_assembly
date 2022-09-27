@@ -65,13 +65,17 @@ fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678s
 #2. K-mer profile and genome size estimation (http://www.cbcb.umd.edu/software/jellyfish/)
 conda install -c conda-forge jellyfish
 jellyfish count -t 8 -C -m 31 -s 1G -o spec_6kb_31mer --min-quality=20 --quality-start=33 *.fastq
-#and do the same with all sequences
+jellyfish histo -o spec1_31mer.histo spec1_31mer
+
+#place it in R
+#(in R:> spec1_25 <- read.table("spec1_25mer.histo") | > plot(spec1_25[5:200,],type="l")
 
 --------------------------
 #3. Assembly
 spades.py -o output -1 SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R1_002.fastq
 #size of dir:
 du -sh . 
+
 --------------------------
 #3.1.quast (ibrary type: paired-end)
 conda activate quast_tool
@@ -94,6 +98,7 @@ fgrep -c '>'contigs.fasta    #== 90
 mkdir 4_step_all_quast_repo
 quast.py -o 4_step_all_quast_repo -t 16 scaffolds.fasta
 
+-------------------------------------
 #5. Genome Annotation(prokka - rapid bacterial genome annotation)
 prokka scaffolds.fasta --outdir prokka_ex_res
 #organism: Genus species strain 
@@ -104,7 +109,7 @@ prokka scaffolds.fasta --outdir prokka_ex_res
 #tmRNA: 1
 #repeat_region: 1
 #CDS: 5064
-
+-----------------------------------
 
 #6. Finding the closest relative of E. coli X
 # Barrnap
@@ -125,6 +130,8 @@ bedtools getfasta -fi ../prokka_raiko/scaffolds.fna -bed 16s_RNA_2.bed > 16srna_
  
  
 #7.Mauve
+conda install -c bioconda mauve
+progressiveMauve --output=my_seqs_coli.xmfa 55989.fasta scaffolds.gbk 
 
 
 
