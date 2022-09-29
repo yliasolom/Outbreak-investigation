@@ -81,7 +81,7 @@ jellyfish histo -o spec1_31mer.histo > spec1_31mer
 
 ---------------------------------------------------
 #3. Assembly
-spades.py -o output -1 SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R1_002.fastq
+spades.py -o output_spades -1 SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R1_002.fastq
 #size of dir:
 du -sh . 
 
