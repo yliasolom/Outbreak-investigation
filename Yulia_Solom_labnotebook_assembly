@@ -34,6 +34,7 @@ nohup trimmomatic PE -threads 8 $FORWARD $REVERSE paired1_$FORWARD unpaired1_$RE
 conda install -c bioconda spades
 spades.py --test  #yes it works
 --------------------------------------------------
+
 #1.fastqc:
 
 mkdir -p srr_data
@@ -65,26 +66,26 @@ fastqc -o . /home/iuliiasolomennikova/srr_data/SRR292678_470kb_paired/SRR292678s
 #2. K-mer profile and genome size estimation (http://www.cbcb.umd.edu/software/jellyfish/)
 conda install -c conda-forge jellyfish
 jellyfish count -t 8 -C -m 31 -s 1G -o spec_470kb_31mer --min-quality=20 --quality-start=33 *.fastq
-jellyfish histo -o spec1_31mer.histo spec1_31mer
+jellyfish histo -o spec1_31mer.histo > spec1_31mer
 
 #R:
-#> sum(as.numeric(kmers[16:1570,1]*kmers[16:1570,2])) [1] 610671524 (how many k-mers)
-#kmers[40:60,]
-the peak was in 60
- Then, the genome size can be estimated as: 10177859
-  Ерут single copy region can be roughly calculated as: 10011009
+#total number of k-mer in the distribution: sum(as.numeric(spec1_31mer[16:1604,1]*spec1_31mer[16:1604,2])): 
+                                   610671524
+#kmers[115:135,]:                  115
+#the genome size:                  5311537 
+#size of single copy region:       5003577
+#proportion                        0.9420207
+
 #https://koke.asrc.kanazawa-u.ac.jp/HOWTO/kmer-genomesize.html
-
 #place it in R
-#(in R:> spec1_25 <- read.table("spec1_25mer.histo") | > plot(spec1_25[5:200,],type="l")
 
---------------------------
+---------------------------------------------------
 #3. Assembly
 spades.py -o output -1 SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R1_002.fastq
 #size of dir:
 du -sh . 
 
---------------------------
+------------------------------------
 #3.1.quast (ibrary type: paired-end)
 conda activate quast_tool
 
@@ -98,6 +99,7 @@ fgrep -c '>' contigs.fasta
 
 #3a (Optional, 1 extra credit). Effect of read correction - Repeat the k-mer profile plotting step
 
+-------------------------------------------------------------
 #4. Impact of reads with large insert size
 
 quast.py -o quast_repo -t 16 scaffolds.fasta
@@ -106,7 +108,7 @@ fgrep -c '>'contigs.fasta    #== 90
 
 -------------------------------------
 #5. Genome Annotation(prokka - rapid bacterial genome annotation)
-prokka scaffolds.fasta --outdir prokka_ex_res
+prokka scaffolds.fasta --outdir prokka_ex_res #for mauve
 #organism: Genus species strain 
 #contigs: 205
 #bases: 5424432
@@ -120,7 +122,7 @@ prokka scaffolds.fasta --outdir prokka_ex_res
 #6. Finding the closest relative of E. coli X
 # Barrnap
 
-barrnap scaffolds.fna < 16srna
+barrnap scaffolds.fasta < 16srna
 #then I created from 16srna file bed file by deleting columns and by renaming the file
 #then I changed the tabularuty by:
 awk -v OFS='\t' '{print $1, $2, $3}' 16sRNA.bed > 16s_RNA_2.bed
@@ -138,6 +140,7 @@ bedtools getfasta -fi ../prokka_raiko/scaffolds.fna -bed 16s_RNA_2.bed > 16srna_
 #7.Mauve
 conda install -c bioconda mauve
 #it does not work:(
+#but instead I just found these shiga-related genes mannualy
 
 
 ------------------------------------------------------
