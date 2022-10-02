@@ -8,7 +8,7 @@ grep -oi "product=.*" scaffolds.ffn | grep -v "hypothetical" | sed "s/product=//
 ./assembled.sh - create your own script
 jobs - which jobs?
 
-f.e.: fo trimming
+f.e.: for trimming
 echo trimming > trimmomatic.sh
 chmod 700 trimmomatic.sh
 
@@ -80,8 +80,9 @@ jellyfish histo -o spec1_31mer.histo > spec1_31mer
 #place it in R
 
 ---------------------------------------------------
-#3. Assembly
+#3. Assembly (paired only)
 spades.py -o output_spades -1 SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R1_002.fastq
+
 #size of dir:
 du -sh . 
 
@@ -99,8 +100,11 @@ fgrep -c '>' contigs.fasta
 
 #3a (Optional, 1 extra credit). Effect of read correction - Repeat the k-mer profile plotting step
 
+
 -------------------------------------------------------------
 #4. Impact of reads with large insert size
+
+~/SPAdes-3.15.4/spades.py --pe1-1 ~/SRR292678S1_R1_001.fastq --pe1-2 ~/SRR292678S1_R2_001.fastq --mp1-1 ~/SRR292770S1_R1_001.fastq --mp1-2 ~/SRR292770S1_R2_001.fastq --mp2-1 ~/SRR292862S2_R1_001.fastq --mp2-2 ~/SRR292862S2_R2_001.fastq -o ~/spades_out_full
 
 quast.py -o quast_repo -t 16 scaffolds.fasta
 fgrep -c '>' scaffolds.fasta #==327 fragments 
