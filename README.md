@@ -2,7 +2,7 @@
 
 Some theory:
 
-`Assembler:
+Assembler:
 1. Number of contigs (we care only about large contigs)
 2. Lenght of contigs ~ coverage
 3. Critera: N=50, GC content, ref length ( [https://en.wikipedia.org/wiki/Sequence_alignment] [http://topicpageswiki.plos.org/wiki/K-mer] )
